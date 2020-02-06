@@ -1,4 +1,4 @@
-Object Relational Mapping (ORM) is the technique of accessing a relational database using an object-oriented programming language.
+Object Relational Mapping (ORM/Object-Relation Mapper) is the technique of accessing a relational database using an object-oriented programming language.
 Object Relational Mapping is a way for our Ruby programs to manage database data by "mapping" database tables to classes and instances of classes to rows in those tables.
 
 
@@ -154,7 +154,7 @@ Now the actuall process of creating a database with ruby
                         user.id = db_id
                         user
                     end
-                    <!--* This DB does not include [:conn becuase our environemnet file, line 60, in this situation is not a hash and is DB = SQLite3::Database.new("db/music.db".)]  -->
+                    <!--* This DB does not include [:conn] becuase our environemnet file, line 60, in this situation is not a hash and is DB = SQLite3::Database.new("db/music.db".)  -->
                     
                     def self.create(name:, album:)
                         song = Song.new(name, album) / We can initialize
@@ -170,6 +170,8 @@ Now the actuall process of creating a database with ruby
 <!-- //                                                                                                  -->
 <!-- //     -->
 Methods of ORM
+in this section, the DB does not include [:conn] becuase in the imaginary environemnet file, does not set our DB as a hash.
+instead, DB = SQLite3::Database.new(filename) 
 <!-- //     -->
 class Users
     def initialize (user_name, id='nil')
@@ -188,7 +190,7 @@ class Users
         end
 <!--* User.find(id) -->
 <!--? Returns an instance of User from the Database  -->
-        def self.find(find.id)
+        def self.find(find_id)
             sql_select_all = "SELECT * FROM users WHERE id = (?)"
             array = DB.execute(sql_select_all, find_id)
             user_data = array[0] <!--* We do this because our database returns an array inside an array-->
@@ -201,6 +203,17 @@ class Users
             users_array = DB.execute(sql_find)
             users_array.map{|user_data| User.new(user_data[1], user_data[0])}
         end
+<!--* save -->
+<!--? saves an individual instance  -->
+        def save
+        if self.id / This is incase we updated the instance and would like to avoid duplicates in our Database.
+            self.update
+        else
+            sql = "INSERT INTO users (user) VALUES (?)"
+            DB.execute(sql, self.user)
+            @id = DB.execute("SELECT last_insert_rowid() FROM users")[0][0]
+        end
+        end
 <!--* delete-->
 <!--? Deleteing a user from our database -->
         def delete
@@ -208,4 +221,76 @@ class Users
             DB.execute(sql_delete, self.id)
             self
         end
+<!--* update -->
+<!--? Updates a user's information in our database AFTER the information has been updated in ruby-->
+        def update
+            sql_update = "UPDATE users SET user=(?) WHERE id = ?"
+            DB.execute(sql, self.user, self.id)
+        end
+
 end
+<!--//                                              -->
+Complex Methods for ORM
+Our Class...
+    class Song
+        
+        attr_accessor :name, :album
+        attr_reader :id
+        
+        def initialize(id=nil, name, album)
+            @id = id
+            @name = name
+            @album = album
+        end
+        
+        def save
+            if self.id
+            self.update
+            else
+            sql = <<-SQL
+                INSERT INTO songs (name, album)
+                VALUES (?, ?)
+            SQL
+        
+            DB[:conn].execute(sql, self.name, self.album)
+            @id = DB[:conn].execute("SELECT last_insert_rowid() FROM songs")[0][0]
+            end
+        end
+        
+        def self.create(name:, album:)
+            song = Song.new(name, album)
+            song.save
+            song
+        end
+        
+        def self.find_by_id(id)
+            sql = "SELECT * FROM songs WHERE id = ?"
+            result = DB[:conn].execute(sql, id)[0]
+            Song.new(result[0], result[1], result[2])
+        end
+        
+        def update
+            sql = "UPDATE songs SET name = ?, album = ? WHERE id = ?"
+            DB[:conn].execute(sql, self.name, self.album, self.id)
+        end
+    end
+<!--* .find_or_create_by -->
+<!--? This method is used to add information to our database while avoiding duplicates. -->
+      def self.find_or_create_by(name:, album:)
+        song = DB[:conn].execute("SELECT * FROM songs WHERE name = ? AND album = ?", name, album)
+        if !song.empty?
+          song_data = song[0]
+          song = Song.new(song_data[0], song_data[1], song_data[2])
+        else
+          song = self.create(name: name, album: album)
+        end
+        song
+      end
+    <!--! in Action  -->
+            Song.find_or_create_by(name: "Hello", album: "25")
+            Song.find_or_create_by(name: "Hello", album: "25")
+            
+            DB[:conn].execute("SELECT * FROM songs WHERE name = Hello, album = 25")
+            # => [[1, "Hello", "25"]]
+
+
