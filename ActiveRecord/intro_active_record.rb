@@ -1,4 +1,7 @@
 Things we need for active record to work..
+#? Additional documentation... 
+#* https://guides.rubyonrails.org/active_record_basics.html#update
+#* http://jamesponeal.github.io/projects/active-record-sheet.html
 
 
 in GEM
