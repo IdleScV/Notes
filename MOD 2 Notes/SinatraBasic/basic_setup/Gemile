@@ -1,0 +1,10 @@
+activerecord
+sinatra-activerecordrake
+sqlite3
+pry
+require_all
+rack
+shotgun
+sinatra
+rest-client
+
