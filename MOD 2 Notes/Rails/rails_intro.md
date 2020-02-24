@@ -7,12 +7,17 @@ Setting up a Rails app.
    
     CD into directory
         3. cd blog-flash
+   
+   Create new models 
+        4. rails g(enerate) model [modelname] name:string age:number
+            rails d(estroy) model [modelname] < to destroy models
+                        [modelname] is not case sensitive 
     
     Create a new database
-        4. rails db:create
+        1. rails db:create
     
     Start the rails app in a new server (run in main directory)
-        5. rails s
+        1. rails s
 
     Runs on the browser at http://localhost:3000/ 
 
@@ -22,5 +27,3 @@ Using console
     To exit
         2. exit 
         3. 
-Create new models 
-    rails g model [modelname] name:string age:number

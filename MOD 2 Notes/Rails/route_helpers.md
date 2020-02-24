@@ -39,9 +39,68 @@ Example usage...
         <% @posts.each do |post| %>
         <div><%= link_to post.title, post_path(post) %></div>
         <% end %>
+            post.title << What i want it to say
+            post_path(post) <<where i want it to go
+                        <%= link_to("What we want it to say", "where i want it to go")%>
 
     Translates to
 
         <% @posts.each do |post| %>
         <div><a href='<%= "/posts/#{post.id}" %>'><%= post.title %></a></div>
         <% end %>
+
+
+    commandline 
+    rails routes => returns a list of routes available
+    rails routes | grep snacks => search only where snacks is part of the route 
+
+    app.snacks_path => returns => "/snacks"
+    app.snacks_url => returns => "https://localhost:3000"
+
+In routes, we can do this . . .  .
+    get "/", to: "snacks$home", as "homepage"               << homepage is the prefix >>
+To call it inside of an erb, we do 
+    <%= link_to "HomePage", homepage_path %>
+
+
+To add parameters . . . 
+    get "/snacks/:id", to: "snacks$show", as "snack"
+To call this . . .
+    <%@snacks.each do |snack| %>
+        <%= link_to snack.name, snack_path(snack)%>
+    <%end%>
+
+
+resources :snacks
+
+resources :snacks only: [:index, :show]
+
+
+
+
+
+
+
+
+
+    Byebug is pry!!!
+     Byebug is pry!!!
+      Byebug is pry!!!
+       Byebug is pry!!!
+        Byebug is pry!!!
+         Byebug is pry!!!
+          Byebug is pry!!!
+           Byebug is pry!!!
+            Byebug is pry!!!
+             Byebug is pry!!! 
+              Byebug is pry!!!
+               Byebug is pry!!!
+                Byebug is pry!!!
+                 Byebug is pry!!!
+                  Byebug is pry!!!
+                   Byebug is pry!!!
+                    Byebug is pry!!!
+                     Byebug is pry!!!
+                      Byebug is pry!!!
+                       Byebug is pry!!!
+                       
