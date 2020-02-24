@@ -9,7 +9,7 @@ Setting up a Rails app.
         3. cd blog-flash
     
     Create a new database
-        4. rake db:create
+        4. rails db:create
     
     Start the rails app in a new server (run in main directory)
         5. rails s
@@ -21,3 +21,6 @@ Using console
         1. rails c
     To exit
         2. exit 
+        3. 
+Create new models 
+    rails g model [modelname] name:string age:number
