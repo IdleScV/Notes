@@ -35,14 +35,14 @@ form_for
 
 <!--*  #Forms with Strong Params -->
 
-  def snack_params
-    params.require(:student).permit(:first_name, last_name)
+  def student_params
+    params.require(:student).permit(:first_name, :last_name)
   end
 
 This would change our controller method create to
 
   def create
-    Student.create(snack_params)
+    Student.create(student_params)
     redirect_to students_path
   end
 
@@ -115,3 +115,32 @@ This would change our controller method create to
   <%= form_tag(student_path(@student)), method: :delete do>
   <%= submit_tag "Delete Student">
   <%end%>
+
+
+  <!-- !!                        -->
+      BEFORE ACTION
+  <!-- !!                        -->
+before_action : (Look it up)
+
+
+  <!-- !!                        -->
+      COLLETION SELECT (Drop down Menu in Form)
+  <!-- !!                        -->
+
+<%= f.collection_select(:school_id, School.all, :id, :name) %>
+<%= f.submit "Snackify" %>
+
+
+  <!-- !!                        -->
+      Subform within create form 
+  <!-- !!                        -->
+
+inside of our controller.rb
+we want to send another instance into our new method e.g.
+@students.snacks.build
+
+
+in our students model, after our has_many / belong_to
+accepts_nested_attributes_for :school, reject_if: proc { |attributes| attributes['name'].blank? }
+
+  https://api.rubyonrails.org/classes/ActiveRecord/NestedAttributes/ClassMethods.html

@@ -29,3 +29,4 @@
         <h1>Hello from the about page</h1>
  
         
+resources: model-name, only: [:new, :create]
