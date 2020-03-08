@@ -12,3 +12,32 @@ document.URL
 
 document.write("Moof") 
   //=> Removes all existing DOM content, replaces it with "Moof"
+
+document.getElementById() =>  returns a singular element  
+document.getElementsByClassName() => return all elements that match 
+document.getElementsByTagName() => return all elements that match 
+document.querySelector()
+
+Example Use... 
+<main>
+  <div>
+    <div>
+      <p>Hello!</p>
+    </div>
+  </div>
+  <div>
+    <div>
+      <p>Hello!</p>
+    </div>
+  </div>
+  <div>
+    <div>
+      <p>Hello!</p>
+    </div>
+  </div>
+</main>
+
+1. const main = document.getElementsByTagName('main')[0]
+2. const div = main.children[1]
+3. const p = div.getElementsByTagName('p')[0]
+4. p.textContent = "Goodbye!"
