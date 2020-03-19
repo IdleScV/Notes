@@ -1,0 +1,72 @@
+.scoreboard {
+  display: flex;
+  flex-direction: row;
+  width: 500px;
+  margin: auto;
+  padding-bottom: 0px;
+  padding-top: 50px; }
+  .scoreboard #title {
+    margin: auto;
+    padding-left: 135px; }
+  .scoreboard h4 {
+    display: flex;
+    margin-left: auto;
+    padding-right: 10px; }
+    .scoreboard h4 #points {
+      margin-left: 5px; }
+
+.game-box {
+  font-family: 'Roboto', sans-serif;
+  background-color: grey;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  border-radius: 5px; }
+  .game-box #countdown {
+    font-size: 14px;
+    text-align: center;
+    padding: 5px 5px;
+    margin-top: 10px;
+    position: absolute;
+    font-weight: 300;
+    color: #000;
+    height: 12px;
+    width: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    left: 920px; }
+  .game-box #start {
+    display: none;
+    padding-top: 31px;
+    text-align: center;
+    margin: auto;
+    width: 140px;
+    height: 45px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none; }
+    .game-box #start:hover {
+      background-color: #2ee59d;
+      box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+      color: #fff;
+      transform: translateY(-7px); }
+
+#playerBlock {
+  width: 25px;
+  height: 25px;
+  background-color: black;
+  margin-top: 250px;
+  position: static; }
+
+/*# sourceMappingURL=index.css.map */
